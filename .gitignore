@@ -1,0 +1,4 @@
+datasets/
+trained_models/
+outputs/
+.ipynb_checkpoints/
