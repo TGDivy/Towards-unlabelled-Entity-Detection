@@ -1,0 +1,19 @@
+{
+    "loadmodel_name_path": "important_words/trained_models/scoreNN_PROP_NER_rand_conll_GMB_tpkoc",
+    "local_rank": -1,
+    "n_gpu": 0,
+    "device": "cpu",
+    "do_lower_case": true,
+    "per_gpu_eval_batch_size": 1,
+    "max_seq_length": 192,
+    "output_dir": "important_words/outputs/",
+    "minimum_score_to_display": 0.2,
+    "divisions": 16,
+    "categories": [
+        "",
+        "NOUN_",
+        "PROPN_",
+        "NER_"
+    ],
+    "seed": 50
+}

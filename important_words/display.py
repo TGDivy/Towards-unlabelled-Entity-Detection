@@ -103,4 +103,6 @@ class Display:
         }
 
         options = {"ents": list(self.label_color.keys()), "colors": self.label_color}
-        displacy.render(ent, manual=True, style="ent", options=options)
+        markdown = displacy.render(ent, manual=True, style="ent", options=options)
+
+        return markdown

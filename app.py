@@ -4,6 +4,8 @@ import spacy
 from flask import Flask, render_template, request, url_for
 from spacy import displacy
 
+from important_words.main import important_words
+
 HTML_WRAPPER = """<div style="overflow-x: auto; border: 1px solid #e6e9ef; border-radius: 0.25rem; padding: 1rem">{}</div>"""
 
 from flaskext.markdown import Markdown
@@ -31,8 +33,8 @@ def index():
 def extract():
     if request.method == "POST":
         raw_text = request.form["rawtext"]
-        docx = ""
-        html = displacy.render(docx, style="ent")
+        m = important_words()
+        html = m.pred(raw_text)
         html = html.replace("\n\n", "\n")
         result = HTML_WRAPPER.format(html)
 

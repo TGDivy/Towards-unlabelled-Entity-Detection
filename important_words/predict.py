@@ -3,8 +3,8 @@ import logging
 import torch
 from transformers import RobertaTokenizer
 
-from display import Display
-from model import Roberta
+from important_words.display import Display
+from important_words.model import Roberta
 
 logger = logging.getLogger(__name__)
 
@@ -118,4 +118,5 @@ class Predict:
             logits[0],
             batch["labels"][0],
         )
-        self.display.render_entities(text, spans)
+        markdown = self.display.render_entities(text, spans)
+        return markdown

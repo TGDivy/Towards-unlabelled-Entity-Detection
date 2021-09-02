@@ -5,7 +5,7 @@ import torch
 from torch.utils.data import DataLoader, SequentialSampler
 from tqdm.notebook import tqdm
 
-from display import Display
+from important_words.display import Display
 
 #     from display import get_spans, render_entities
 #     from torch.utils.tensorboard import SummaryWriter
