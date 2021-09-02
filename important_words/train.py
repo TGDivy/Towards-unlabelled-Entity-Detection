@@ -77,15 +77,6 @@ def train(args, tokenizer, model):
         optimizer, num_warmup_steps=args.warmup_steps, num_training_steps=t_total
     )
 
-    if args.fp16:
-        try:
-            from apex import amp
-        except ImportError:
-            raise ImportError(
-                "Please install apex from https://www.github.com/nvidia/apex to use fp16 training."
-            )
-        model, optimizer = amp.initialize(model, optimizer, opt_level=args.fp16)
-
     # multi-gpu training (should be after apex fp16 initialization)
     if args.n_gpu > 1:
         model = torch.nn.DataParallel(model)
