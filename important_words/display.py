@@ -47,11 +47,11 @@ class Display:
             previ = i
             colorval = int(255 * (self.maxscore - i) / self.maxscore)
             i = int(round(i, 3) * 100)
-            dic[self.categories[int(name)] + str((i))] = self.rgb_to_hex(
+            dic[str((i)) + self.categories[int(name)]] = self.rgb_to_hex(
                 (colorval, 167, 125)
             )
             if not self.predict_mode:
-                dic["XX" + self.categories[int(name)] + str(i)] = self.rgb_to_hex(
+                dic["XX" + str((i)) + self.categories[int(name)]] = self.rgb_to_hex(
                     (colorval, colorval, 160)
                 )
         self.category_vals.append(self.maxscore)
@@ -91,9 +91,9 @@ class Display:
         category_i = [j for j in range(self.n) if score < self.category_vals[j]][0]
         val = int(round(np.linspace(0, self.maxscore, self.divisions)[i - 1], 3) * 100)
         if correct or self.predict_mode:
-            return self.categories[category_i] + str(val)
+            return str(val) + self.categories[category_i]
         else:
-            return "XX" + self.categories[category_i] + str(val)
+            return "XX" + str(val) + self.categories[category_i]
 
     def render_entities(self, text, spans):
         ent = {

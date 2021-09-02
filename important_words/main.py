@@ -21,20 +21,24 @@ class important_words:
     def __init__(self) -> None:
         args = json.load(open("important_words/args.json", "r"))
         self.args = DotMap(args)
+        self.p = Predict(self.args)
+
+    def set_minimum_score_to_display(self, score):
+        self.p.display.minimum_score_to_display = score
 
     def pred(self, MAIN_DOC):
         self.args.minimum_score_to_display = 0.2
         print("Predicting!\n" + "*" * 75)
         #######################################
-        p = Predict(self.args)
+
         tokenizer = nltk.data.load("tokenizers/punkt/english.pickle")
         inputs = tokenizer.tokenize(MAIN_DOC)
         output = ""
         for sentence in inputs:
             if sentence not in [""]:
                 words = nltk.word_tokenize(sentence)
-                inp = p.load_input(words)
-                markdown = p.run_batch_selection_eval(inp)
+                inp = self.p.load_input(words)
+                markdown = self.p.run_batch_selection_eval(inp)
                 output = output + markdown
         return output
 

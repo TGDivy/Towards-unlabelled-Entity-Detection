@@ -56,36 +56,6 @@
             background-color: #dfdfdf;
         }
 
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 15px;
-            border-radius: 5px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #04AA6D;
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #04AA6D;
-            cursor: pointer;
-        }
-
         div.a {
             white-space: normal;
             overflow: hidden;
@@ -125,10 +95,10 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/extract">Important Words</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/coref">Coreference Resolution</a>
                 </li>
                 <li class="nav-item">
@@ -152,19 +122,8 @@
             <div class="col-md-9">
                 <div class="card mb-10 shadow-sm" id="custom_card">
                     <div class="container">
-                        <form method="POST" action="/extract">
-                            <div class="slidecontainer">
-                                <div class="row">
-                                    <div class="col-md-9"><input type="range" min="0" max="300"
-                                            value="{{ minimum_score }}" name="minimum_score" class="slider"
-                                            id="myRange">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p>minimum score: <span id="min_score"></span></p>
-                                    </div>
-                                </div>
+                        <form method="POST" action="/coref">
 
-                            </div>
                             <textarea rows="7" cols="0" required="true" name="rawtext"
                                 class="form-control">{{ rawtext }}</textarea>
                             <br>
@@ -210,18 +169,6 @@
         </div>
     </div>
 
-    <script>
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("min_score");
-        output.innerHTML = slider.value;
-
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-            $.post("/postmethod", {
-                javascript_data: this.value
-            });
-        }
-    </script>
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->

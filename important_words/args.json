@@ -11,9 +11,9 @@
     "divisions": 16,
     "categories": [
         "",
-        "NOUN_",
-        "PROPN_",
-        "NER_"
+        "-",
+        "+",
+        "★"
     ],
     "seed": 50
 }

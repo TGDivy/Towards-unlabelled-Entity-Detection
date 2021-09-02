@@ -1,9 +1,11 @@
 import json
 
+import requests
 import spacy
-from flask import Flask, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for
 from spacy import displacy
 
+from coref import Display
 from important_words.main import important_words
 
 HTML_WRAPPER = """<div style="overflow-x: auto; border: 1px solid #e6e9ef; border-radius: 0.25rem; padding: 1rem">{}</div>"""
@@ -13,46 +15,68 @@ from flaskext.markdown import Markdown
 app = Flask(__name__)
 Markdown(app)
 
-
-# def analyze_text(text):
-# 	return nlp(text)
+m = important_words()
+d = Display()
+tokenizer = nltk.data.load("tokenizers/punkt/english.pickle")
 
 
 @app.route("/")
 def index():
-    # raw_text = "Bill Gates is An American Computer Scientist since 1986"
-    # docx = nlp(raw_text)
-    # html = displacy.render(docx,style="ent")
-    # html = html.replace("\n\n","\n")
-    # result = HTML_WRAPPER.format(html)
+    return redirect(url_for("extract"))
 
-    return render_template("index.html")
+
+@app.route("/postmethod", methods=["GET", "POST"])
+def get_post_javascript_data():
+    jsdata = request.form["javascript_data"]
+    print(jsdata)
+    return "<p>Hello, World!</p>"
 
 
 @app.route("/extract", methods=["GET", "POST"])
 def extract():
+    raw_text = "Fill me in!"
+    minimum_display_score = 80
+    html = """<div class="entities" style="line-height: 2.5; direction: ltr"> Fill me in! </div>"""
     if request.method == "POST":
         raw_text = request.form["rawtext"]
-        m = important_words()
+        minimum_display_score = int(request.form["minimum_score"])
+        m.set_minimum_score_to_display(minimum_display_score / 100)
         html = m.pred(raw_text)
-        html = html.replace("\n\n", "\n")
-        result = HTML_WRAPPER.format(html)
 
-    return render_template("result.html", rawtext=raw_text, result=result)
+    html = html.replace("\n\n", "\n")
+    result = HTML_WRAPPER.format(html)
+
+    return render_template(
+        "result.html",
+        rawtext=raw_text,
+        result=result,
+        minimum_score=minimum_display_score,
+    )
 
 
-@app.route("/previewer")
-def previewer():
-    return render_template("previewer.html")
-
-
-@app.route("/preview", methods=["GET", "POST"])
-def preview():
+@app.route("/coref", methods=["GET", "POST"])
+def coref():
+    raw_text = "Fill me in!"
+    minimum_display_score = 80
+    html = """<div class="entities" style="line-height: 2.5; direction: ltr"> Fill me in! </div>"""
     if request.method == "POST":
-        newtext = request.form["newtext"]
-        result = newtext
+        raw_text = request.form["rawtext"]
+        sentences = tokenizer.tokenize(raw_text)
+        corefs = json.loads(
+            requests.post("http://localhost:9000/predict", json=sentences).text
+        )
+        d = Display()
+        html = d.run(corefs, sentences)
 
-    return render_template("preview.html", newtext=newtext, result=result)
+    html = html.replace("\n\n", "\n")
+    result = HTML_WRAPPER.format(html)
+
+    return render_template(
+        "result.html",
+        rawtext=raw_text,
+        result=result,
+        minimum_score=minimum_display_score,
+    )
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>DisplaCify App</title>
+    <title>ERD</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +41,7 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">DisplaCify App</a>
+        <a class="navbar-brand" href="/">ERD App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -53,21 +53,18 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/previewer">Previewer</a>
+                    <a class="nav-link" href="/important_words">Important Words</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="/coref">Coreference Resolution</a>
                 </li>
-
-
             </ul>
-
         </div>
     </nav>
     <br />
     <br />
 
-    <div class="jumbotron" style="background:#673AB7;color:#fff">
+    <div class="jumbotron" style="background:#110628;color:#fff">
         <div class="container">
             <h2 class="display-3">Displaying NER in Flask </h2>
             <p>Using Spacy's Named Entity Recognition</p>
@@ -76,16 +73,33 @@
     </div>
     <br />
     <br />
-    <div class="container">
 
-        <form method="POST" action="{{ url_for('extract')}}">
-            <textarea rows="5" cols="5" required="true" name="rawtext" class="form-control">
-		</textarea>
-            <button type="reset" class="btn btn-primary"><i class="fa fa-eraser"></i> Clear</button>
-            <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+    <div class="container">
+        <form method="POST" action="/extract">
+            <div class="slidecontainer">
+                <input type="range" min="0" max="300" value="50" name="minimum_score" class="slider" id="myRange">
+                <p>Value: <span id="demo">20</span></p>
+            </div>
+            <textarea rows="5" cols="5" required="true" name="rawtext" class="form-control">{{ rawtext }}</textarea>
+            <button type="submit" class="btn btn-info"><i class="fa fa-database">
+                </i>
+                Submit
+            </button>
         </form>
     </div>
 
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+            $.post("/postmethod", {
+                javascript_data: this.value
+            });
+        }
+    </script>
 
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -103,6 +117,7 @@
     <script type="text/javascript">
         $('.file_upload').file_upload();
     </script>
+
 </body>
 
 </html>
