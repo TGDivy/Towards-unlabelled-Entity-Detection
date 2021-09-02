@@ -1,4 +1,4 @@
-datasets/
-trained_models/
-outputs/
+important_words/datasets/
+important_words/trained_models/
+important_words/outputs/
 .ipynb_checkpoints/
