@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "/Users/divybrahecha/homebrew/opt/python@3.7/libexec/bin/python",
+        "/Users/divybrahecha/homebrew/opt/python@3.7/libexec/bin/pip"
+    ]
+}
