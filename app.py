@@ -1,5 +1,6 @@
 import json
 
+import nltk
 import requests
 import spacy
 from flask import Flask, redirect, render_template, request, url_for
@@ -19,6 +20,8 @@ m = important_words()
 d = Display()
 tokenizer = nltk.data.load("tokenizers/punkt/english.pickle")
 
+raw_text = "Fill me in!"
+
 
 @app.route("/")
 def index():
@@ -34,7 +37,7 @@ def get_post_javascript_data():
 
 @app.route("/extract", methods=["GET", "POST"])
 def extract():
-    raw_text = "Fill me in!"
+    global raw_text
     minimum_display_score = 80
     html = """<div class="entities" style="line-height: 2.5; direction: ltr"> Fill me in! </div>"""
     if request.method == "POST":
@@ -56,8 +59,7 @@ def extract():
 
 @app.route("/coref", methods=["GET", "POST"])
 def coref():
-    raw_text = "Fill me in!"
-    minimum_display_score = 80
+    global raw_text
     html = """<div class="entities" style="line-height: 2.5; direction: ltr"> Fill me in! </div>"""
     if request.method == "POST":
         raw_text = request.form["rawtext"]
@@ -71,12 +73,7 @@ def coref():
     html = html.replace("\n\n", "\n")
     result = HTML_WRAPPER.format(html)
 
-    return render_template(
-        "result.html",
-        rawtext=raw_text,
-        result=result,
-        minimum_score=minimum_display_score,
-    )
+    return render_template("coref_result.html", rawtext=raw_text, result=result)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ import json
 import random
 
 import requests
+import seaborn as sns
 from spacy import displacy
 
 
@@ -23,8 +24,10 @@ class Display:
 
     def color_label_dict(self):
         dic = {}
+        colors = sns.color_palette("Spectral", len(self.categories)).as_hex()
+
         for i in self.categories:
-            dic[i] = self.random_hex()
+            dic[i] = colors[int(i)]
         return dic
 
     def get_spans(self, text, dic):
@@ -33,7 +36,8 @@ class Display:
         final_text = " ".join(text)
         for i in text:
             sentence_lengths.append(total)
-            total += len(text) + 1
+            total += len(i) + 1
+        print(sentence_lengths)
         spans = []
         for cluster in dic.keys():
             for entity in dic[cluster]:
@@ -43,7 +47,9 @@ class Display:
                 ent = {"start": start, "end": end, "label": cluster}
                 spans.append(ent)
         spans.sort(key=lambda x: x["start"])
-
+        print(dic)
+        print("=" * 50)
+        print(spans)
         return final_text, spans
 
     def render_entities(self, text, spans):
