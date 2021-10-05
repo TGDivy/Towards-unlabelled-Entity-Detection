@@ -59,13 +59,14 @@
         div.a {
             white-space: normal;
             overflow: hidden;
-            text-overflow: initial;
             width: 100%;
-            height: 320px;
+            height: 100%;
         }
 
         div.a:hover {
-            overflow: scroll;
+            /* overflow: scroll; */
+            width: 100%;
+            height: 100%;
         }
 
         @media all and (max-width:30em) {
@@ -124,7 +125,7 @@
                     <div class="container">
                         <form method="POST" action="/coref">
 
-                            <textarea rows="7" cols="0" required="true" name="rawtext"
+                            <textarea rows="8" cols="0" required="true" name="rawtext"
                                 class="form-control">{{ rawtext }}</textarea>
                             <br>
                             <button type="submit" class="button">
@@ -151,11 +152,6 @@
                 </div>
 
             </div>
-        </div>
-        <div class="row">
-            <p>
-
-            </p>
         </div>
         <div class="row">
             <div class="col">

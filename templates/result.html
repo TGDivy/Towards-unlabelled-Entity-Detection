@@ -95,7 +95,8 @@
         }
 
         div.a:hover {
-            overflow: scroll;
+            width: 150%;
+            /* overflow: scroll; */
         }
 
         @media all and (max-width:30em) {
@@ -144,6 +145,11 @@
         <div class="container">
             <h2 class="display-3">Words by Importance</h2>
             <p>Tagging potentially important words and scoring them w.r.t their importantance.</p>
+            <p>Defining importance is often very tricky, and to a large extent subjective.</p>
+            <p>The current model made use of heuristics to learn importance by nouns, proper nouns, and named entities.
+            </p>
+            <p>Moreover, it's set up such that it can be easily extended to learn the importance w.r.t. the documents
+                ingested, so as to learn how the frequency of detected entities change over time.</p>
         </div>
     </div>
 
@@ -179,19 +185,22 @@
             <div class="col">
                 <div class="a">
                     <div class="card mb-10 shadow-sm" id="custom_card2">
-                        <p>Hover the entire text. Hover the entire text over the entire text. Hover the entire text.</p>
-                        <p>Hover the entire text.</p>
-                        <p>Hover the entire text.</p>
-                        <p>Hover the entire text.</p>
-                        <p>Hover the entire text.</p>
-                        <p>Hover the entire text. Hover the entire text.</p>
-                        <p>Hover the entire text. Hover the entire text.</p>
-                        <p>Hover the entire text. Hover the entire text.</p>
-                        <p>Hover the entire text. Hover the entire text. over the entire text. Hover the entire text.
-                        </p>
+                        <h4>Model Details</h4>
+                        <ul>
+                            <li>Roberta base finetuned</li>
+                            <li>Treated as a regression task!</li>
+                            <li>Generating data using heurisitcs and normal distribuition based on POS tags</li>
+                            <li>Datasets Used
+                                <ul>
+                                    <li>Universal Dependencies</li>
+                                    <li>Peacekeeping</li>
+                                    <li>Conll 2003</li>
+                                    <li>GMB</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row">
