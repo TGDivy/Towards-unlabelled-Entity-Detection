@@ -18,7 +18,7 @@ This flexibility, then allows us to further monitor, generate data and finetune 
 
 It uses a pretrained Roberta, which is then finetuned on various NER datasets. Moreover, the finetuning is done in a way to capture the underlying distribution of the entities present and represent them on a scale between **0-300**.
 
-For more **training details** refer to ```important_words/``` directory, and [Training Notebook](important_words/Important%20words%20predict!.ipynb)
+For more **training details** refer to ```important_words/``` directory, and [Training Notebook](important_words/Noun%20Detector%20Train.ipynb)
 
 #### Simple Flask app for visualization
 
