@@ -18,6 +18,8 @@ This flexibility, then allows us to further monitor, generate data and finetune 
 
 It uses a pretrained Roberta, which is then finetuned on various NER datasets. Moreover, the finetuning is done in a way to capture the underlying distribution of the entities present and represent them on a scale between **0-300**.
 
+For more **training details** refer to ```important_words/``` directory, and [Training Notebook](important_words/Important%20words%20predict!.ipynb)
+
 #### Simple Flask app for visualization
 
 I built a simple Flask app for visualization of system, and illustate it better. To run the app, please install the dependencies, and run app.py file.
